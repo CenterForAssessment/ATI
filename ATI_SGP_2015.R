@@ -46,3 +46,8 @@ ATI_SGP <- abcSGP(
 ### Save results
 
 save(ATI_SGP, file="Data/ATI_SGP.Rdata")
+
+
+###  Output Long file
+
+outputSGP(ATI_SGP, output.type="LONG_Data")
