@@ -22,7 +22,6 @@ ATI_Data_LONG$GRADE[ATI_Data_LONG$YEAR=="2014.1"] <- paste(ATI_Data_LONG$GRADE[A
 ATI_Data_LONG$SCALE_SCORE <- as.numeric(ATI_Data_LONG$SCALE_SCORE)
 
 
-
 ### Save results
 
 save(ATI_Data_LONG, file="Data/ATI_Data_LONG.Rdata")
