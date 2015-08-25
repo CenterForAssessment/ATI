@@ -11,11 +11,17 @@ require(data.table)
 
 ### Load ATI SGP object
 
-ATI_Data_LONG <- fread('Data/Base_Files/_ASU_2014-15_PrePost_072015.csv')
+ATI_Data_LONG <- fread('Data/Base_Files/_ASU_2014-15_PreMYPost_2015-08-18.csv')
 
-my.tmp.split <- strsplit(ATI_Data_LONG$TestDate, "/")
+##  Fix the DATE format and create new variable with SGP naming convention
+my.tmp.split <- strsplit(ATI_Data_LONG$TestDate, " ")
+my.tmp.split <- sapply(my.tmp.split, function(x) strsplit(x[[1]][1], "/"))
+# my.tmp.split <- strsplit(ATI_Data_LONG$TestDate, "/")
+
 ATI_Data_LONG[, DATE := as.Date(sapply(seq_along(my.tmp.split), function(x) paste(c(my.tmp.split[[x]][3], my.tmp.split[[x]][1:2]), collapse = "-")))]
 setnames(ATI_Data_LONG, "Year", "YEAR")
+
+
 ### Load EOCT configurations
 
 source("SGP_CONFIG/2015/READING.2015_PrePost.config")
