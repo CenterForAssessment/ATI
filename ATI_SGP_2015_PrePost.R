@@ -9,7 +9,7 @@
 require(SGP)
 require(data.table)
 
-### Load ATI SGP object
+### Load ATI data
 
 ATI_Data_LONG <- fread('Data/Base_Files/_ASU_2014-15_PreMYPost_2015-08-18.csv')
 
@@ -19,8 +19,10 @@ my.tmp.split <- sapply(my.tmp.split, function(x) strsplit(x[[1]][1], "/"))
 # my.tmp.split <- strsplit(ATI_Data_LONG$TestDate, "/")
 
 ATI_Data_LONG[, DATE := as.Date(sapply(seq_along(my.tmp.split), function(x) paste(c(my.tmp.split[[x]][3], my.tmp.split[[x]][1:2]), collapse = "-")))]
-setnames(ATI_Data_LONG, "Year", "YEAR")
 
+##  Fix the YEAR variable (name and mid-year format)
+setnames(ATI_Data_LONG, "Year", "YEAR")
+ATI_Data_LONG[which(YEAR=='2014-2015.2'), YEAR := '2014_2015.2']
 
 ### Load EOCT configurations
 
